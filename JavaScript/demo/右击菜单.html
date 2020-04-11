@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>contextMenu</title>
+  <style>
+    #menu {
+      display: none;
+      position: absolute;
+      border-radius: 2px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+    }
+
+    .menu-list {
+      width: 60px;
+      line-height: 25px;
+      cursor: default;
+      color: #333333;
+      font-size: 12px;
+      text-indent: 1em;
+    }
+
+    .menu-list:hover {
+      color: #ffffff;
+      background: #4087ed;
+    }
+  </style>
+</head>
+
+<body>
+  <p>右击试试</p>
+  <div id="menu">
+    <div class="menu-list" onclick="document.location.reload()">刷新</div>
+    <div class="menu-list" onclick="console.log('删除失败!')">删除</div>
+    <div class="menu-list" onclick="console.log('憨憨')">属性</div>
+  </div>
+  <script>
+    // 右击
+    document.oncontextmenu = function (e) {
+      var event = e || window.event
+      var menu = document.getElementById('menu')
+      // 阻止默认行为
+      event.preventDefault()
+
+      menu.style.left = event.pageX + 'px'
+      menu.style.top = event.pageY + 'px'
+      menu.style.display = 'block'
+
+      // 隐藏
+      document.onclick = function (e) {
+        menu.style.display = 'none'
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拖拽</title>
+  <style>
+    #app {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    var disX, disY;
+    var app = document.getElementById('app');
+
+    // 鼠标点击
+    app.onmousedown = function (e) {
+
+      disX = e.pageX - parseInt(app.offsetLeft)
+      disY = e.pageY - parseInt(app.offsetTop)
+
+      app.style.background = 'green'
+
+      // 鼠标移动
+      document.onmousemove = function (e) {
+
+        var event = e || window.event
+
+        app.style.left = event.pageX - disX + 'px'
+        app.style.top = event.pageY - disY + 'px'
+      }
+      // 鼠标松开
+      app.onmouseup = function () {
+        // 取消事件
+        document.onmousemove = null
+        app.style.background = 'red'
+      }
+
+    }
+  </script>
+</body>
+
+</html>
