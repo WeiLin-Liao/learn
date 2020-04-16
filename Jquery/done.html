@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="main"></div>
+    <script>
+        // 不能传递给下一个链式调用的方法
+        $.get('https://api.uixsj.cn/hitokoto/w.php').done(function (res) {
+            if (res) {
+                document.getElementById('main').innerText = res
+            }
+        })
+    </script>
+</body>
+
+</html>
