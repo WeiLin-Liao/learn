@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #bar {
+            height: 500px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="bar"></div>
+    <script>
+        function get10MinutesScale() {
+            var currDate = new Date();
+            var odd = currDate.getMinutes() % 10;
+            var returnArr = new Array();
+            currDate.setMinutes(currDate.getMinutes() - odd);
+            for (var i = 0; i < 7; i++) {
+                returnArr.push(currDate.getHours() + ":" + (currDate.getMinutes() < 10 ? ("0" + currDate.getMinutes()) : currDate.getMinutes()));
+                currDate.setMinutes(currDate.getMinutes() - 10);
+            }
+            return returnArr;
+        }
+        echarts.init(document.getElementById('bar')).setOption({
+            title: {
+                text: 'Test'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                top: 20,
+                right: 5,
+                textStyle: {
+                    color: 'black'
+                },
+                orient: 'vertical',
+                textStyle: {
+                    color: '#333'
+                },
+                data: [
+                    { name: '网络', icon: 'circle' },
+                    { name: '内存', icon: 'circle' },
+                    { name: 'CPU', icon: 'circle' }
+                ]
+            },
+            grid: {
+                top: '10%',
+                left: '1%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                axisTick: { show: false },
+                axisLabel: {
+                    textStyle: {
+                        color: "black", // 刻度颜色
+                        fontSize: 12  // 刻度大小
+                    }
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#0B3148',
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                data: get10MinutesScale()
+            },
+            yAxis: {
+                type: 'value',
+                axisTick: { show: false },
+                axisLabel: {
+                    textStyle: {
+                        color: "black", // 刻度颜色
+                        fontSize: 12  // 刻度大小
+                    }
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#0B3148',
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                splitLine: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    name: '网络',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#F3891B'
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: '#F3891B',
+                                opacity: 1
+                            }
+                        }
+                    },
+                    data: [120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name: '内存',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#006AD4'
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: '#F3891B',
+                                opacity: 1
+                            }
+                        }
+                    },
+                    data: [220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name: 'CPU',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#009895'
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: '#009895',
+                                opacity: 1
+                            }
+                        }
+                    },
+                    data: [150, 232, 201, 154, 190, 330, 410]
+                }
+            ]
+        })
+    </script>
+</body>
+
+</html>

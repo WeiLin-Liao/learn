@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #pie {
+            height: 100vh;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="pie"></div>
+    <script>
+        var data = {
+            nameArr: ['牛奶', '鸡蛋', '面包', '辣条', '棉花糖'],
+            sumArr: [
+                {
+                    name: '牛奶',
+                    value: 100
+                },
+                {
+                    name: '鸡蛋',
+                    value: 120
+                },
+                {
+                    name: '面包',
+                    value: 40
+                },
+                {
+                    name: '辣条',
+                    value: 39
+                },
+                {
+                    name: '棉花糖',
+                    value: 50
+                }
+            ]
+        }
+        var myMap = echarts.init(document.getElementById('pie')).setOption({
+            // 提示框
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            // 标记
+            legend: {
+                type: 'plain',
+                orient: 'horizontal', // horizontal
+                icon: 'circle',
+                itemWidth: 15,
+                itemHeight: 15,
+                left: 0,
+                top: 20,
+                data: data.nameArr,
+                inactiveColor: '#1886ff', //选中的颜色
+                textStyle: {
+                    // color: '#fff'
+                }
+            },
+            // 修改色盘颜色
+            color: ['#333333', '#ff7200', '#8e31ff',"#e7be98", '#ff4000'],
+            series: [
+                {
+                    name: '占比',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['30%', '50%'],
+                    data: data.sumArr,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        })
+    </script>
+</body>
+
+</html>

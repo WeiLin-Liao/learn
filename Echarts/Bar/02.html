@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #bar {
+            height: 500px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="bar"></div>
+    <script>
+        function getLatestDays(num){
+            var currentDay = new Date();
+            var returnDays = [];
+            for (var i = 0 ; i < num ; i++)
+            {
+                currentDay.setDate(currentDay.getDate() - 1);
+                returnDays.push((currentDay.getMonth()+1)+"/"+currentDay.getDate());
+            }
+            return returnDays
+        }
+        echarts.init(document.getElementById('bar')).setOption({
+            title: {
+                text: 'Test'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: []
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '5%',
+                top: '10%',
+                containLabel: true
+            },
+            xAxis:
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: getLatestDays(31),
+                axisLabel: {
+                    textStyle: {
+                        color: "black", // 刻度颜色
+                        fontSize: 12  // 刻度大小
+                    },
+                    rotate: 45,
+                    interval: 2
+                },
+                axisTick: { show: false },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#0B3148',
+                        width: 1,
+                        type: 'solid'
+                    }
+                }
+            },
+            yAxis:
+            {
+                type: 'value',
+                axisTick: { show: false },
+                axisLabel: {
+                    textStyle: {
+                        color: "black", // 刻度颜色
+                        fontSize: 12  // 刻度大小
+                    }
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#0B3148',
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                splitLine: {
+                    show: false
+                }
+            },
+            tooltip: {
+                formatter: '{c}',
+                backgroundColor: '#FE8501'
+            },
+            series: [
+                {
+                    name: '',
+                    type: 'line',
+                    smooth: true,
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: '#026B6F' }, { offset: 1, color: '#012138' }], false),
+                            opacity: 0.2
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#009991'
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: '#009895',
+                                opacity: 1
+                            }
+                        }
+                    },
+                    symbol: 'none',
+                    data: [48, 52, 45, 46, 89, 120, 110, 100, 88, 96, 88, 45, 78, 67, 89, 103, 104, 56, 45, 104, 112, 132, 120, 110, 89, 95, 90, 89, 102, 110, 110]
+                }
+            ]
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #pie {
+            height: 100vh;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="pie"></div>
+    <script>
+        var COLOR = {
+            MACHINE: {
+                TYPE_A: '#0175EE',
+                TYPE_B: '#D89446',
+                TYPE_C: '#373693',
+                TYPE_D: '#25AE4F',
+                TYPE_E: '#06B5C6',
+                TYPE_F: '#009E9A',
+                TYPE_G: '#AC266F'
+            }
+        }
+        echarts.init(document.getElementById('pie')).setOption({
+            title: {
+                text: '',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+            },
+            legend: {
+                show: true,
+                x: 'center',
+                y: 'top',
+                data: ['A机型', 'B机型', 'C机型', 'D机型', 'E机型', 'F机型', 'G机型']
+            },
+            label: {
+                normal: {
+                    show: true,
+                    formatter: "{b} \n{d}%"
+                }
+            },
+            calculable: true,
+            color: [COLOR.MACHINE.TYPE_A, COLOR.MACHINE.TYPE_B, COLOR.MACHINE.TYPE_C, COLOR.MACHINE.TYPE_D, COLOR.MACHINE.TYPE_E, COLOR.MACHINE.TYPE_F, COLOR.MACHINE.TYPE_G],
+            series: [
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: [40, 80],
+                    center: ['50%', '50%'],
+                    //roseType : 'area',
+                    data: [
+                        { value: 4600, name: 'A机型' },
+                        { value: 4600, name: 'B机型' },
+                        { value: 15600, name: 'C机型' },
+                        { value: 6600, name: 'D机型' },
+                        { value: 5700, name: 'E机型' },
+                        { value: 7600, name: 'F机型' },
+                        { value: 3500, name: 'G机型' }
+                    ]
+                }
+            ]
+        })
+    </script>
+</body>
+
+</html>
