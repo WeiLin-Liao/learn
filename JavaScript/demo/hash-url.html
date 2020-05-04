@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ol,ul {
+      list-style-type: none;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    .header {
+      width: 1200px;
+      height: 60px;
+      margin: auto;
+      line-height: 60px;
+      background: #ffffff;
+      border-bottom: 1px solid #f1f1f1;
+      overflow: hidden;
+    }
+    .header img {
+      vertical-align: middle;
+    }
+
+    #navagation {
+      float: right;
+    }
+    #navagation li {
+      margin-left: 50px;
+      text-align: center;
+      display: inline-block;
+    }
+    #navagation li a {
+      font-family: '微软雅黑';
+      color: #333333;
+    }
+    #navagation .active a {
+      color: #007cfa;
+    }
+
+    .wrapper {
+      width: 1200px;
+      margin: auto;
+      overflow: hidden;
+    }
+    
+    #content {
+      width: 400%;
+    }
+    #content .page {
+      /* display: none; */
+      float: left;
+      width: 1200px;
+      text-align: center;
+      line-height: calc(100vh - 60px);
+    }
+    #content .page h1 {
+      font-size: 60px;
+      font-weight: 400;
+    }
+    #content .page-active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://reself.oss-cn-beijing.aliyuncs.com/coding.me/logo.png" alt="">
+    <ul id="navagation">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#api">文档</a></li>
+      <li><a href="#demo">案例</a></li>
+      <li><a href="#about">关于</a></li>
+    </ul>
+  </div>
+  <div class="wrapper">
+    <div id="content">
+      <div class="page" style="background: red;" id="page-home">
+        <h1>HOME</h1>
+      </div>
+      <div class="page" style="background: blue;" id="page-api">
+        <h1>API</h1>
+      </div>
+      <div class="page" style="background: green;" id="page-demo">
+        <h1>DEMO</h1>
+      </div>
+      <div class="page" style="background: yellow;" id="page-about">
+        <h1>ABOUT</h1>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var navList = document.getElementById('navagation').getElementsByTagName('li');
+  var content = document.getElementById('content');
+  var pageList = content.getElementsByClassName('page');
+  
+  this.updateView()
+
+  function updateView (target, key) {
+    var length = navList.length;
+
+    for (let i = 0; i < length; i ++) {
+      navList[i].onclick = function(e) {
+        updateView(this, i)
+      }
+      navList[i].className = ''
+      pageList[i].className = 'page'
+      pageList[i].style.animation = ''
+    }
+
+    if (target) {
+      getPageDom(target).className = 'page page-active'
+      target.className = 'active'
+      content.style.transition = 'all .5s ease-out'
+      content.style.transform = 'translateX(-' + 1200 * key +'px)'
+      return
+    }
+
+    navList[0].className = 'active'
+    pageList[0].className = 'page page-active'
+  }
+
+  function getPageDom (target) {
+    var dom = target.children[0];
+    var className = 'page-' + dom.hash.split('#')[1];
+
+    return document.getElementById(className)
+  }
+</script>
+</html>
